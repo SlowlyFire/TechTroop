@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-nature-natural-beauty.jpg/1280px-24701-nature-natural-beauty.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+}
+
+/* Transparent title: text shows the body background through the letters */
+.transparent-title {
+  position: relative;
+  font-size: 3em;
+  color: transparent;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-nature-natural-beauty.jpg/1280px-24701-nature-natural-beauty.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  background-clip: text;
+  padding: 20px 40px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.transparent-title::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  z-index: -1;
+}
+
+/* Opaque title: solid background so the image underneath is hidden */
+.opaque-title {
+  font-size: 3em;
+  color: #fff;
+  background-color: #2c3e50;
+  padding: 20px 40px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0;
+}
