@@ -22,6 +22,6 @@ body {
   border-right: 1px solid #222;
 }
 
-.section:last-child {
+/* .section:last-child {
   border-right: none;
-}
+} */
