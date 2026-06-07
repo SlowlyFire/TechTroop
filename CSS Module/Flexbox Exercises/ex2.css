@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.container {
+  display: flex;
+  border: 2px solid #999;
+  margin-bottom: 30px;
+}
+
+.box {
+  flex-grow: 1;
+  background-color: #6fa8dc;
+  border: 1px solid #5a8fc4;
+  padding: 15px 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.box-small {
+  flex-grow: 1;
+}
+
+.box-large {
+  flex-grow: 2;
+}

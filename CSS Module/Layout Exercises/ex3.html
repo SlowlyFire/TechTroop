@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+  <link rel="stylesheet" href="ex3.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="form-card">
+      <div class="form-header">
+        <h1>Contact Form</h1>
+        <p>Get in touch with us</p>
+      </div>
+
+      <form>
+        <!-- First Name + Last Name -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" placeholder="">
+          </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group full-width">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="">
+        </div>
+
+        <!-- Subject + Priority -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject">
+              <option>Select a topic</option>
+              <option>General Inquiry</option>
+              <option>Support</option>
+              <option>Sales</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="priority">Priority</label>
+            <select id="priority">
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group full-width">
+          <label for="message">Message</label>
+          <textarea id="message" rows="4" placeholder="Tell us how we can help..."></textarea>
+        </div>
+
+        <!-- Contact Preferences -->
+        <div class="form-group full-width">
+          <label class="section-label">Contact Preferences</label>
+          <div class="checkboxes">
+            <label class="checkbox-label">
+              <input type="checkbox"> Email Updates
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox"> Phone Follow-up
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox"> Newsletter
+            </label>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary">Save Draft</button>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
