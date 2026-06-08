@@ -1,0 +1,239 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: 900px;
+}
+
+.page-title {
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.card-image-wrapper {
+  position: relative;
+  flex: 0 0 45%;
+  max-width: 45%;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #764ba2;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.card-content {
+  flex: 1;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #764ba2;
+  font-weight: 600;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stars {
+  color: #f5a623;
+  font-size: 0.9rem;
+}
+
+.review-count {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.3;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.7;
+}
+
+.card-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-features li {
+  font-size: 0.875rem;
+  color: #555;
+  padding-left: 18px;
+  position: relative;
+}
+
+.card-features li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: #764ba2;
+  font-weight: 700;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.price-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-original {
+  font-size: 1rem;
+  color: #bbb;
+  text-decoration: line-through;
+}
+
+.price-current {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #764ba2;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #764ba2;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5c3880;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
+}
+
+.btn-secondary {
+  background: #f5f0fa;
+  color: #764ba2;
+  border: 1px solid #764ba2;
+}
+
+.btn-secondary:hover {
+  background: #ede5f7;
+}
+
+@media (max-width: 900px) {
+  .card {
+    flex-direction: column;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .card-image-wrapper {
+    flex: none;
+    max-width: 100%;
+    height: 280px;
+  }
+  .card-content { padding: 24px; gap: 12px; }
+  .card-title { font-size: 1.3rem; }
+  .card-description { font-size: 0.9rem; }
+  .price-current { font-size: 1.4rem; }
+  .page-title { font-size: 1.6rem; }
+}
+
+@media (max-width: 600px) {
+  body { padding: 24px 12px; align-items: center; }
+  .card { border-radius: 14px; }
+  .card-image-wrapper { height: 220px; }
+  .card-content { padding: 18px; gap: 10px; }
+  .card-meta { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .card-title { font-size: 1.1rem; }
+  .card-description { font-size: 0.83rem; }
+  .card-features li { font-size: 0.8rem; }
+  .price-current { font-size: 1.2rem; }
+  .price-original { font-size: 0.875rem; }
+  .card-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .actions { width: 100%; }
+  .btn { flex: 1; padding: 10px 12px; font-size: 0.8rem; text-align: center; }
+  .page-title { font-size: 1.3rem; margin-bottom: 20px; }
+}
