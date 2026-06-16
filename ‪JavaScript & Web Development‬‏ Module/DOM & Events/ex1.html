@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise 1 - Ball Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #1a1a2e;
+      min-height: 100vh;
+      margin: 0;
+      padding: 30px;
+    }
+    h1 { color: white; margin-bottom: 20px; }
+
+    #arena {
+      position: relative;
+      width: 500px;
+      height: 400px;
+      background: #16213e;
+      border: 3px solid #0f3460;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    #ball {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at 35% 35%, #ff6b9d, #c44569);
+      border-radius: 50%;
+      top: 180px;
+      left: 230px;
+      transition: top 0.1s, left 0.1s;
+    }
+    #controls {
+      display: grid;
+      grid-template-columns: repeat(3, 60px);
+      grid-template-rows: repeat(3, 60px);
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .arrow {
+      width: 60px;
+      height: 60px;
+      background: #0f3460;
+      color: white;
+      border: 2px solid #533483;
+      border-radius: 8px;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .arrow:hover { background: #533483; }
+    .empty { visibility: hidden; }
+  </style>
+</head>
+<body>
+  <h1>⚽ Ball Game</h1>
+  <div id="arena">
+    <div id="ball"></div>
+  </div>
+  <div id="controls">
+    <div class="empty"></div>
+    <div class="arrow" id="up">▲</div>
+    <div class="empty"></div>
+    <div class="arrow" id="left">◄</div>
+    <div class="empty"></div>
+    <div class="arrow" id="right">►</div>
+    <div class="empty"></div>
+    <div class="arrow" id="down">▼</div>
+    <div class="empty"></div>
+  </div>
+
+  <script>
+    const ball = document.getElementById('ball');
+    const arena = document.getElementById('arena');
+    const STEP = 20;
+
+    function moveBall(direction) {
+      let top = parseInt(ball.style.top) || 180;
+      let left = parseInt(ball.style.left) || 230;
+      const ballSize = ball.offsetWidth;
+
+      if (direction === 'up')    top  = Math.max(0, top - STEP);
+      if (direction === 'down')  top  = Math.min(arena.clientHeight - ballSize, top + STEP);
+      if (direction === 'left')  left = Math.max(0, left - STEP);
+      if (direction === 'right') left = Math.min(arena.clientWidth - ballSize, left + STEP);
+
+      ball.style.top  = top  + 'px';
+      ball.style.left = left + 'px';
+    }
+
+    // Arrow button events
+    document.getElementById('up').onclick    = function() { moveBall('up');    };
+    document.getElementById('down').onclick  = function() { moveBall('down');  };
+    document.getElementById('left').onclick  = function() { moveBall('left');  };
+    document.getElementById('right').onclick = function() { moveBall('right'); };
+
+    // Extension 3: keyboard support
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowUp')    { e.preventDefault(); moveBall('up');    }
+      if (e.key === 'ArrowDown')  { e.preventDefault(); moveBall('down');  }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); moveBall('left');  }
+      if (e.key === 'ArrowRight') { e.preventDefault(); moveBall('right'); }
+    });
+  </script>
+</body>
+</html>

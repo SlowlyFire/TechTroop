@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise 2 - Reservations</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f0f4f8;
+    }
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 { color: #333; text-align: center; margin-bottom: 24px; }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4299e1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #3182ce; }
+    #message {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
+    .success { background: #d4edda; color: #155724; }
+    .warning { background: #fff3cd; color: #856404; }
+    .error   { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎟️ Reservations</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name..." />
+    <button onclick="checkReservation()">Check Reservation</button>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const reservations = {
+      Bob: { claimed: false },
+      Ted: { claimed: true }
+    };
+
+    function checkReservation() {
+      const name = document.getElementById('nameInput').value.trim();
+      const messageEl = document.getElementById('message');
+      messageEl.style.display = 'block';
+      messageEl.className = '';
+
+      if (!reservations[name]) {
+        messageEl.textContent = 'You have no reservation';
+        messageEl.className = 'error';
+      } else if (reservations[name].claimed) {
+        messageEl.textContent = 'Hmm, someone already claimed this reservation';
+        messageEl.className = 'warning';
+      } else {
+        messageEl.textContent = 'Welcome, ' + name + '!';
+        messageEl.className = 'success';
+        reservations[name].claimed = true;
+      }
+    }
+
+    document.getElementById('nameInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkReservation();
+    });
+  </script>
+</body>
+</html>

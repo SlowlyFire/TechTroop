@@ -21,4 +21,4 @@ describe("add – spy on Array.prototype.push", () => {
     expect(pushSpy).toHaveBeenCalledWith(3, 4);
     pushSpy.mockRestore();
   });
-});
+});n
