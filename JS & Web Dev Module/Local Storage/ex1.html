@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wisdom Wall</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+      height: fit-content;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #718096;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #667eea;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    #add-btn {
+      background: #667eea;
+      color: white;
+    }
+
+    #add-btn:hover {
+      background: #5a67d8;
+    }
+
+    #clear-btn {
+      width: 100%;
+      background: #fc8181;
+      color: white;
+      margin-bottom: 24px;
+    }
+
+    #clear-btn:hover {
+      background: #f56565;
+    }
+
+    .status {
+      font-size: 13px;
+      color: #a0aec0;
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .status span {
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    #wisdom-list {
+      list-style: none;
+    }
+
+    #wisdom-list li {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      background: #f7fafc;
+      border-left: 4px solid #667eea;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #2d3748;
+    }
+
+    .wisdom-id {
+      font-size: 11px;
+      color: #a0aec0;
+      margin-right: 10px;
+      font-style: italic;
+    }
+
+    .wisdom-text {
+      flex: 1;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #fc8181;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 0 4px;
+      line-height: 1;
+    }
+
+    .delete-btn:hover {
+      color: #e53e3e;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #a0aec0;
+      font-style: italic;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💡 Wisdom Wall</h1>
+    <p class="subtitle">Share your wisdom — it will be remembered!</p>
+
+    <div class="input-group">
+      <input type="text" id="wisdom-input" placeholder="Enter your wisdom here..." />
+      <button id="add-btn">Add</button>
+    </div>
+
+    <div class="status">
+      Items: <span id="count">0</span> &nbsp;|&nbsp; Saved to localStorage on every even click
+    </div>
+
+    <button id="clear-btn">🗑️ Clear Wisdom</button>
+
+    <ul id="wisdom-list"></ul>
+  </div>
+
+  <script>
+    let wisdom = [];
+    let nextId = 1;
+
+    // Load from localStorage on page load
+    function loadFromStorage() {
+      const stored = localStorage.getItem('wisdom');
+      if (stored) {
+        wisdom = JSON.parse(stored);
+        if (wisdom.length > 0) {
+          nextId = Math.max(...wisdom.map(w => w.id)) + 1;
+        }
+        wisdom.forEach(renderItem);
+        updateCount();
+      }
+    }
+
+    function saveToStorage() {
+      localStorage.setItem('wisdom', JSON.stringify(wisdom));
+    }
+
+    function updateCount() {
+      document.getElementById('count').textContent = wisdom.length;
+    }
+
+    function renderItem(item) {
+      const list = document.getElementById('wisdom-list');
+
+      // Remove empty message if present
+      const emptyMsg = list.querySelector('.empty-msg');
+      if (emptyMsg) emptyMsg.remove();
+
+      const li = document.createElement('li');
+      li.setAttribute('data-id', item.id);
+
+      const idSpan = document.createElement('span');
+      idSpan.className = 'wisdom-id';
+      idSpan.textContent = '#' + item.id;
+
+      const textSpan = document.createElement('span');
+      textSpan.className = 'wisdom-text';
+      textSpan.textContent = item.text;
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.textContent = 'x';
+      deleteBtn.title = 'Delete this wisdom';
+      deleteBtn.addEventListener('click', () => deleteItem(item.id));
+
+      li.appendChild(idSpan);
+      li.appendChild(textSpan);
+      li.appendChild(deleteBtn);
+      list.appendChild(li);
+    }
+
+    function showEmptyIfNeeded() {
+      const list = document.getElementById('wisdom-list');
+      if (wisdom.length === 0 && !list.querySelector('.empty-msg')) {
+        const msg = document.createElement('p');
+        msg.className = 'empty-msg';
+        msg.textContent = 'No wisdom yet. Add some!';
+        list.appendChild(msg);
+      }
+    }
+
+    function deleteItem(id) {
+      wisdom = wisdom.filter(w => w.id !== id);
+      const li = document.querySelector(`#wisdom-list li[data-id="${id}"]`);
+      if (li) li.remove();
+      saveToStorage();
+      updateCount();
+      showEmptyIfNeeded();
+    }
+
+    document.getElementById('add-btn').addEventListener('click', () => {
+      const input = document.getElementById('wisdom-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const item = { id: nextId++, text: text };
+      wisdom.push(item);
+      renderItem(item);
+      updateCount();
+      input.value = '';
+      input.focus();
+
+      // Save on every other click (when wisdom length is even)
+      if (wisdom.length % 2 === 0) {
+        saveToStorage();
+      }
+    });
+
+    // Allow pressing Enter to add
+    document.getElementById('wisdom-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('add-btn').click();
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      wisdom = [];
+      nextId = 1;
+      localStorage.removeItem('wisdom');
+      document.getElementById('wisdom-list').innerHTML = '';
+      updateCount();
+      showEmptyIfNeeded();
+    });
+
+    // Initialize
+    loadFromStorage();
+    showEmptyIfNeeded();
+  </script>
+</body>
+</html>
