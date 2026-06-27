@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Company Profile</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="btn btn--ghost">← Back to search</a>
+    <div id="compInfo" style="margin-top:16px;"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="CompanyInfo.js"></script>
+  <script>
+    (async function () {
+      const params = new URLSearchParams(location.search);
+      const symbol = params.get('symbol');
+      const compInfo = new CompanyInfo(document.getElementById('compInfo'), symbol);
+      await compInfo.load();
+      await compInfo.addChart();
+    })();
+  </script>
+</body>
+</html>

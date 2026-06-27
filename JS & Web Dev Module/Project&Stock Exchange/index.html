@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nasdaq Stock Exchange</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="marquee"></div>
+  <div class="container">
+    <div id="comparison"></div>
+    <h2>Search Nasdaq Stocks</h2>
+    <div id="form"></div>
+    <div id="results"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="Marquee.js"></script>
+  <script src="SearchResult.js"></script>
+  <script src="SearchForm.js"></script>
+  <script src="ComparisonList.js"></script>
+  <script>
+    (async function () {
+      const marquee = new Marquee(document.getElementById('marquee'));
+      marquee.load();
+
+      const comparison = new ComparisonList(document.getElementById('comparison'), 3);
+
+      const form = new SearchForm(document.getElementById('form'));
+      const results = new SearchResult(document.getElementById('results'));
+
+      form.onSearch((companies, query) => {
+        results.renderResults(companies, query);
+      });
+
+      results.onCompare((company) => {
+        comparison.add(company);
+      });
+    })();
+  </script>
+</body>
+</html>
